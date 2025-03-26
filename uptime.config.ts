@@ -16,6 +16,30 @@ const workerConfig = {
   // passwordProtection: 'username:password',
   // Define all your monitors here
   monitors: [
+    {
+      id: 'blog_monitor',
+      name: 'Blog',
+      method: 'GET',
+      target: 'https://www.onani.cn',
+      tooltip: '个人博客站点监控',
+      statusPageLink: 'https://www.onani.cn',
+      timeout: 10000,
+      headers: {
+        'User-Agent': 'Uptimeflare'
+      }
+    },
+    {
+      id: 'alist_monitor',
+      name: 'AList',
+      method: 'GET',
+      target: 'https://alist.onani.cn',
+      tooltip: 'AList 文件管理系统',
+      statusPageLink: 'https://alist.onani.cn',
+      timeout: 10000,
+      headers: {
+        'User-Agent': 'Uptimeflare'
+      }
+    },
     // Example HTTP Monitor
     {
       // `id` should be unique, history will be kept if the `id` remains constant
@@ -83,11 +107,26 @@ const workerConfig = {
       timeNow: number,
       reason: string
     ) => {
-      // This callback will be called when there's a status change for any monitor
-      // Write any Typescript code here
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${env.RESEND_API_KEY}` // 替换为您的Resend API密钥
+        },
+        body: JSON.stringify({
+          from: 'UptimeFlare <uptimeflare@resend.dev>', // 替换为您的发件人
+          to: 'sudo@onani.cn', // 替换为您的接收邮箱
+          subject: `[UptimeFlare] ${monitor.name} 状态变更: ${isUp ? '恢复正常' : '服务中断'}`,
+          html: `
+            <h3>${monitor.name} 状态更新</h3>
+            <p>状态: ${isUp ? '🟢 正常' : '🔴 中断'}</p>
+            <p>原因: ${reason}</p>
+            <p>时间: ${new Date(timeNow).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}</p>
+          `
+        })
+      });
 
-      // This will not follow the grace period settings and will be called immediately when the status changes
-      // You need to handle the grace period manually if you want to implement it
+      console.log('发送通知邮件:', await response.text());
     },
     onIncident: async (
       env: any,
