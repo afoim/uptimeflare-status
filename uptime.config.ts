@@ -1,11 +1,11 @@
 const pageConfig = {
   // Title for your status page
-  title: "lyc8503's Status Page",
+  title: "AcoFork UptimeFlare",
   // Links shown at the header of your status page, could set `highlight` to `true`
   links: [
-    { link: 'https://github.com/lyc8503', label: 'GitHub' },
-    { link: 'https://blog.lyc8503.net/', label: 'Blog' },
-    { link: 'mailto:me@lyc8503.net', label: 'Email Me', highlight: true },
+    { link: 'https://github.com/afoim', label: 'GitHub' },
+    { link: 'https://www.onani.cn/', label: 'Blog' },
+    { link: 'mailto:mailto:sudo@onani.cn?subject=[AcoFork%20UptimeFlare]%20网站反馈', label: 'Email Me', highlight: true },
   ],
 }
 
