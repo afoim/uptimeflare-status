@@ -21,7 +21,6 @@ const workerConfig = {
       name: 'Blog',
       method: 'GET',
       target: 'https://www.onani.cn',
-      tooltip: '个人博客站点监控',
       statusPageLink: 'https://www.onani.cn',
       timeout: 10000,
       headers: {
@@ -33,7 +32,6 @@ const workerConfig = {
       name: 'AList',
       method: 'GET',
       target: 'https://alist.onani.cn',
-      tooltip: 'AList 文件管理系统',
       statusPageLink: 'https://alist.onani.cn',
       timeout: 10000,
       headers: {
